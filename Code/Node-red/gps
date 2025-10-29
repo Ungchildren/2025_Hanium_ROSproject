@@ -1,1 +1,45 @@
+#function
 
+// null-safe formatter
+function toFixedOrDash(val, digits = 6) {
+    return (typeof val === "number" && !isNaN(val)) ? val.toFixed(digits) : "-";
+}
+
+// MongoDB 결과가 배열이므로 첫 번째 문서를 꺼냄
+let doc = (Array.isArray(msg.payload) && msg.payload.length > 0) ? msg.payload[0] : {};
+
+msg.payload = {
+    latitude: toFixedOrDash(doc.latitude),
+    longitude: toFixedOrDash(doc.longitude),
+    timestamp: new Date(doc.timestamp * 1000).toLocaleString(),
+    status: doc.status || "-"
+};
+
+return msg;
+
+
+#UI
+<div style="padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px;">
+  <div style="color:#00CED1; font-weight: bold; margin-bottom: 8px;">📡 GPS Data</div>
+  <table style="width: 100%; font-size: 15px;">
+    <tr>
+      <td>위도:</td>
+      <td style="text-align: right; font-weight: bold;">{{msg.payload.latitude}}°</td>
+    </tr>
+    <tr>
+      <td>경도:</td>
+      <td style="text-align: right; font-weight: bold;">{{msg.payload.longitude}}°</td>
+    </tr>
+    <tr>
+      <td>상태:</td>
+      <td style="text-align: right; font-weight: bold;">
+        <span ng-if="msg.payload.status === '정상' || msg.payload.status === 'OK'" style="color: green;">
+          실외에 위치하고 있습니다.
+        </span>
+        <span ng-if="msg.payload.status !== '정상' && msg.payload.status !== 'OK'" style="color: red;">
+          GPS 미지원 지역입니다.
+        </span>
+      </td>
+    </tr>
+  </table>
+</div>
