@@ -1,1 +1,82 @@
+import rclpy
+from rclpy.node import Node
+from sensor_msgs.msg import LaserScan
+from pymongo import MongoClient
+import certifi
+from rclpy.qos import QoSProfile, ReliabilityPolicy
+
+class LidarMongoLoggerNode(Node):
+    def __init__(self):
+        super().__init__('lidar_node')
+
+        # QoS 설정: LiDAR 퍼블리셔와 맞추기 위해 BEST_EFFORT
+        qos = QoSProfile(depth=10)
+        qos.reliability = ReliabilityPolicy.BEST_EFFORT
+
+        # /scan 토픽 구독
+        self.subscription = self.create_subscription(
+            LaserScan,
+            '/scan',
+            self.listener_callback,
+            qos)
+
+        # MongoDB 연결
+        uri = "mongodb+srv://ungchildren:ungchildren@ungchildren.mywuke3.mongodb.net/?retryWrites=true&w=majority&appName=Ungchildren"
+        ca = certifi.where()
+        self.client = MongoClient(uri, tlsCAFile=ca)
+        self.db = self.client["robot_data"]
+        self.collection = self.db["lidar"]
+
+        self.get_logger().info("MongoDB 연결 완료 및 /scan 구독 시작")
+
+        # 상태 변경 추적용
+        self.last_obstacle_state = None
+
+    def listener_callback(self, msg: LaserScan):
+        # 장애물 인식 거리 범위 (단위: m)
+        OBSTACLE_MIN = 0.05
+        OBSTACLE_MAX = 0.3
+
+        # 유효 범위만 필터링
+        valid_ranges = [r for r in msg.ranges if OBSTACLE_MIN < r < OBSTACLE_MAX]
+
+        # 장애물 판단
+        obstacle_detected = len(valid_ranges) > 0
+        min_range = round(min(valid_ranges, default=100.0), 3)
+
+        # 상태 변경이 있을 때만 로그 출력
+        if obstacle_detected != self.last_obstacle_state:
+            self.get_logger().info(
+                f"📦 상태 변경됨 → obstacle={obstacle_detected}, min={min_range} m"
+            )
+            self.last_obstacle_state = obstacle_detected
+
+        # MongoDB에 저장할 문서
+        lidar_entry = {
+            '_id': 'latest_lidar',
+            'timestamp': self.get_clock().now().to_msg().sec,
+            'obstacle_detected': obstacle_detected,
+            'min_range_detected': min_range
+        }
+
+        try:
+            self.collection.replace_one({'_id': 'latest_lidar'}, lidar_entry, upsert=True)
+        except Exception as e:
+            self.get_logger().error(f"❌ MongoDB 저장 실패: {e}")
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = LidarMongoLoggerNode()
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+
+
 
