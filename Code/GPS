@@ -1,1 +1,38 @@
 
+import gps
+import pymongo
+from datetime import datetime
+
+# MongoDB Atlas 연결 문자열 (비밀번호 포함)
+mongo_url = "mongodb connection url"
+
+# 연결 및 데이터베이스/컬렉션 설정
+client = pymongo.MongoClient(mongo_url)
+db = client['ungchildren']            # 보통 사용자명과 동일하게 DB 생성됨
+collection = db['gps']                # 실시간 위치 저장용 컬렉션
+
+# GPS 세션 시작
+session = gps.gps(mode=gps.WATCH_ENABLE | gps.WATCH_NEWSTYLE)
+
+while True:
+    report = session.next()
+    if report['class'] == 'TPV':
+        gps_data = {
+            "_id": "latest",
+            "timestamp": datetime.utcnow().isoformat() + "Z",
+            "latitude": getattr(report, 'lat', None),
+            "longitude": getattr(report, 'lon', None),
+            "altitude": getattr(report, 'alt', None),
+            "mode": getattr(report, 'mode', 0),
+            "gps_status": "3D_FIX" if getattr(report, 'mode', 0) == 3 else "NO_FIX"
+        }
+
+        try:
+            collection.update_one(
+                {"_id": "latest"},
+                {"$set": gps_data},
+                upsert=True
+            )
+            print("Updated GPS:", gps_data)
+        except Exception as e:
+            print("MongoDB update error:", e)
