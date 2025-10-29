@@ -1,0 +1,9 @@
+#function
+const data = msg.payload[0];  // 응답은 배열로 옴
+msg.payload = {
+    temperature: data.temperature,
+    humidity: data.humidity,
+    timestamp: data.timestamp
+};
+return msg;
+
