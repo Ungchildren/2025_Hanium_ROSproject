@@ -1,0 +1,19 @@
+const data = msg.payload[0] || msg.payload;
+
+if (!data.linear_acceleration) {
+    node.error("linear_acceleration 누락됨", msg);
+    return null;
+}
+
+const xMsg = {
+    topic: "X",
+    payload: parseFloat(data.linear_acceleration.x.toFixed(5))
+};
+
+const yMsg = {
+    topic: "Y",
+    payload: parseFloat(data.linear_acceleration.y.toFixed(5))
+};
+
+// 각각의 메시지를 하나씩 Chart로 보내기
+return [xMsg, yMsg];
