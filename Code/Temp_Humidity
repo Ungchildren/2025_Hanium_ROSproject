@@ -1,1 +1,29 @@
+import time
+import board            
+import adafruit_dht     
 
+# board.D4는 GPIO 4번 핀을 의미합니다. 
+# 만약 다른 핀에 연결했다면 숫자를 바꿔주세요 (예: board.D17)
+dhtDevice = adafruit_dht.DHT22(board.D4) 
+
+print("온습도 측정을 시작합니다. (나가려면 Ctrl+C를 누르세요)")
+
+while True:
+    try:
+        # 센서 값을 읽어옵니다.
+        temperature_c = dhtDevice.temperature
+        humidity = dhtDevice.humidity
+
+        # 터미널에 보기 좋게 출력합니다.
+        print("온도 = {:.1f}°C  |  습도 = {}% ".format(temperature_c, humidity))
+
+    except RuntimeError as error:
+        # 센서 값을 읽다가 에러가 발생하면 출력하고 계속 진행합니다.
+        print(error.args[0])
+        time.sleep(2.0)
+        continue
+    except Exception as error:
+        dhtDevice.exit()
+        raise error
+
+    time.sleep(2.0)
