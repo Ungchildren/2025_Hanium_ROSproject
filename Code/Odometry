@@ -1,1 +1,86 @@
+import rclpy
+from rclpy.node import Node
+from nav_msgs.msg import Odometry
+from pymongo import MongoClient
+import certifi
+import math
+
+class OdomMongoLoggerNode(Node):
+    def __init__(self):
+        super().__init__('odom_mongo_logger_node')
+
+        # ROS2 Subscriber
+        self.subscription = self.create_subscription(
+            Odometry,
+            '/odom',
+            self.listener_callback,
+            10)
+
+        # MongoDB 연결
+        uri = "mongodb+srv://ungchildren:ungchildren@ungchildren.mywuke3.mongodb.net/?retryWrites=true&w=majority&appName=Ungchildren"
+        ca = certifi.where()
+        self.client = MongoClient(uri, tlsCAFile=ca)
+        self.db = self.client["robot_data"]
+        self.collection = self.db["odom"]
+
+        self.get_logger().info("MongoDB 연결 완료 및 /odom 구독 시작")
+
+        # 거리 계산을 위한 초기값
+        self.last_x = None
+        self.last_y = None
+        self.total_distance = 0.0
+
+    def listener_callback(self, msg):
+        # 현재 위치
+        x = msg.pose.pose.position.x
+        y = msg.pose.pose.position.y
+
+        # 거리 계산
+        if self.last_x is not None and self.last_y is not None:
+            dx = x - self.last_x
+            dy = y - self.last_y
+            step = math.hypot(dx, dy)
+
+            # 점프 필터링 (1m 이상은 무시 — 선택 사항)
+            if step < 1.0:
+                self.total_distance += step
+        # 위치 갱신
+        self.last_x = x
+        self.last_y = y
+
+        # MongoDB에 저장할 데이터 구성
+        odom_entry = {
+            '_id': 'latest',  # 문서 하나만 유지
+            'timestamp': self.get_clock().now().to_msg().sec,
+            'position': {
+                'x': x,
+                'y': y,
+                'z': msg.pose.pose.position.z,
+            },
+            'orientation': {
+                'x': msg.pose.pose.orientation.x,
+                'y': msg.pose.pose.orientation.y,
+                'z': msg.pose.pose.orientation.z,
+                'w': msg.pose.pose.orientation.w
+            },
+            'distance_traveled_m': round(self.total_distance, 3)  # 누적 거리 추가
+        }
+
+        # MongoDB에 업서트(갱신)
+        self.collection.replace_one({'_id': 'latest'}, odom_entry, upsert=True)
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = OdomMongoLoggerNode()
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+
 
