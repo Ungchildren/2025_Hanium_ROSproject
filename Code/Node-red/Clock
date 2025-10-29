@@ -1,0 +1,65 @@
+<style>
+  .clock-card {
+    background: #4A4A46;
+    /* 카드 배경: 흰색 */
+    color: #1e1e1e;
+    border-radius: 12px;
+    padding: 8px 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
+    /* 약한 그림자 */
+    border: 1px solid #ddd;
+  }
+
+  .clock-title {
+    color: #ffffff;
+    /* 파란 타이틀 */
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: .06em;
+    margin-bottom: 6px;
+  }
+
+  .clock-time {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 1.1;
+    letter-spacing: .02em;
+    color: #ffffff;
+    /* 시간은 진한 검정 */
+  }
+
+  .clock-date {
+    color: #ffffff;
+    /* 날짜는 어두운 회색 */
+    font-size: 12px;
+    margin-top: 6px;
+  }
+</style>
+
+<div class="clock-card">
+  <div class="clock-title">Clock</div>
+  <div class="clock-time">{{time || '--:--:--'}}</div>
+  <div class="clock-date">{{date || ''}}</div>
+</div>
+
+<script>
+  (function(scope){
+  const LOCALE = 'ko-KR';   // 한국어 표시
+  const USE_12H = false;    // 24시간제 사용
+  const pad = n => String(n).padStart(2,'0');
+
+  function tick(){
+    const d = new Date();
+    const h24 = d.getHours();
+    const h = USE_12H ? ((h24 % 12) || 12) : h24;
+    scope.time = `${pad(h)}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+    scope.date = d.toLocaleDateString(LOCALE, {
+      year:'numeric', month:'long', day:'numeric', weekday:'long'
+    });
+    scope.$applyAsync();
+  }
+  tick(); setInterval(tick, 1000);
+})(scope);
+</script>
