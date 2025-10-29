@@ -1,1 +1,19 @@
+#function code
+const data = msg.payload[0];  // MongoDB에서 온 문서 1개
+
+let isObstacle = data.obstacle_detected === true;
+let minRange = data.min_range_detected;
+
+// 거리 값이 너무 크면 "감지 없음"으로 표시 (예: default 100.0 등)
+if (minRange >= 99.0 || !isFinite(minRange)) {
+    minRange = null;
+}
+
+msg.payload = {
+    status: isObstacle ? "⚠️ 장애물 감지됨" : "✅ 경로 확보됨",
+    min_range_display: minRange !== null ? `${minRange.toFixed(2)} m` : "감지 없음",
+    danger: isObstacle  // 조건부 색상에 활용 가능
+};
+
+return msg;
 
