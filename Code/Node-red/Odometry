@@ -1,1 +1,20 @@
+const data = msg.payload[0];
 
+let yaw = Math.atan2(2.0 * (data.orientation.w * data.orientation.z + data.orientation.x * data.orientation.y),
+                     1.0 - 2.0 * (data.orientation.y * data.orientation.y + data.orientation.z * data.orientation.z));
+
+// yaw를 degree로 변환
+let yawDeg = yaw * (180 / Math.PI);
+
+// -180~180으로 정규화
+if (yawDeg > 180) yawDeg -= 360;
+if (yawDeg < -180) yawDeg += 360;
+
+msg.payload = {
+    x: data.position.x.toFixed(5),
+    y: data.position.y.toFixed(5),
+    yaw_deg: yawDeg.toFixed(2),  // template에서 사용
+    distance_m: data.distance_traveled_m.toFixed(3),
+    timestamp: data.timestamp
+};
+return msg;
