@@ -1,23 +1,82 @@
-# 2025_Hanium_ROSproject
-2025 한이음 드림업 공모전 장려상 수상 
+##2025_Hanium_ROSproject
 
-## Link
+2025 한이음 드림업 ICT 공모전 장려상 (Honorable Mention, KAIT)
 
-## Background
-본 프로젝트는 Optical Flow 분석과 IMU 데이터를 융합하고, 칼만 필터(Kalman Filter)를
-적용하여 VIO 기반 차량 위치 추정 시스템을 개발하는 것을 목표로 한다. IMU 센서는 가속도 및
-각속도 데이터를 활용하여 차량의 자세(Orientation)와 속도 변화를 측정한다. Optical Flow와
-IMU 데이터를 결합하여 센서별 단점을 보완하고, 칼만 필터를 통해 위치 추정의 정확도를
-향상시킨다. 또한, Jetson Orin Nano에서 MATLAB 기반 VIO 알고리즘을 실행하여 실시간
-데이터 처리를 최적화하며, 실시간 웹 모니터링 시스템을 구축하여 Optical Flow 및 IMU 센서
-데이터를 클라우드 서버로 전송하고 웹 대시보드를 통해 실시간 시각화 및 분석이 가능하도록
-구현한다. 웹 대시보드에서는 차량의 이동 궤적, 속도 그래프, 센서 데이터 변화를 실시간으로
-시각화할 수 있으며, 기록된 데이터를 바탕으로 후처리 분석도 지원한다. 이를 통해 GPS가
-불안정한 환경에서도 차량의 이동 경로를 정밀하게 추정할 수 있는 VIO 기반 위치 추정 시스템을
-개발한다.
+A real-time disaster rescue robot for GPS-denied environments using multi-sensor data fusion (LiDAR, IMU, Wheel Encoder, Camera, Temperature/Humidity).
 
-## Environment Setup
+🔗 Links
 
-## Flow Diagram
+🎥 Demo Video → YouTube Link
 
-## Built With
+📄 Paper → “Real-Time Disaster Rescue Robot for GPS-Denied Environments Using Multi-Sensor Data Fusion,”
+Korea Information Technology Society, Nov. 2025
+
+🧠 Team → Hanium Dream-Up 2025 Project Page
+ (optional)
+
+🧩 Background
+
+Modern disaster environments often block GPS signals (e.g., tunnels, basements, or dense urban areas).
+This project proposes a multi-sensor fusion robot system capable of real-time localization, mapping, and autonomous navigation in such GPS-denied environments.
+
+Key Objectives:
+
+Replace unreliable GPS data with LiDAR–IMU–Odometry fusion (LIO).
+
+Perform real-time SLAM and path planning on a Linux-based ROS2 system.
+
+Provide cloud-based monitoring through MongoDB Atlas and Node-RED.
+
+Detect environmental hazards with YOLOv5 and onboard cameras.
+
+⚙️ Environment Setup
+Category	Details
+OS	Ubuntu 20.04 LTS
+Framework	ROS2 Foxy, Navigation2, Cartographer
+Programming	Python 3, C++
+Hardware	Raspberry Pi 4, Stella N2 Robot
+Sensors	LiDAR (YDLidar X4PRO), IMU (MW-AHRSv2U), Wheel Encoder, GPS (EZ-0048), Temp/Humidity Sensor
+Database / Monitoring	MongoDB Atlas, Node-RED
+AI Model	YOLOv5 (custom trained for obstacle detection)
+
+#System architecture
+<img width="972" height="625" alt="image" src="https://github.com/user-attachments/assets/5227d894-40b7-4a96-a4eb-fbb972524345" />
+System
+
+<img width="959" height="642" alt="image" src="https://github.com/user-attachments/assets/eaf8da6a-4658-474c-819f-b097c7bb600d" />
+Hardware
+
+<img width="1337" height="620" alt="image" src="https://github.com/user-attachments/assets/82e0d6e4-ddb8-4f9d-bc54-49870729c32b" />
+Software
+
+<img width="1893" height="1155" alt="image" src="https://github.com/user-attachments/assets/62a25a0c-25c0-43c5-ba43-f65bd10baf42" />
+Node-RED diagram
+
+🧠 Built With
+
+ROS2 (Foxy) – SLAM, Navigation, and real-time sensor fusion
+
+Cartographer – LiDAR-Inertial SLAM implementation
+
+YOLOv5 – Real-time object detection for hazard identification
+
+MongoDB Atlas – Cloud data storage for live sensor updates
+
+Node-RED Dashboard – Web-based real-time monitoring
+
+Raspberry Pi 4 + Stella N2 – Embedded control and execution platform
+
+📊 Results
+
+Stable autonomous navigation in GPS-denied indoor environments
+
+<img width="1694" height="812" alt="image" src="https://github.com/user-attachments/assets/0c4860cf-5545-40ec-9fa9-354de3e2eee7" />
+Web Dashboard
+description
+- Real-time SLAM mapping and object detection
+- End-to-end monitoring pipeline from robot → cloud → web
+
+Result Youtube
+https://youtu.be/2Iq2_ShP6eY?si=E3-j7cPRBcZmXgdn
+
+🏅 Honorable Mention (KAIT Hanium Dream-Up ICT Competition 2025)
