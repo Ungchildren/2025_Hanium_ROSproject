@@ -90,12 +90,12 @@ Obstacles were randomly placed to test dynamic path planning and YOLO-based haza
 
 ## 📊 Results  
 
-### 🛰️ Stable autonomous navigation in GPS-denied indoor environments  
+### 🛰️ End-to-end monitoring pipeline from robot → cloud → web in GPS-denied indoor environments  
 <img width="1694" alt="Web Dashboard" src="https://github.com/user-attachments/assets/0c4860cf-5545-40ec-9fa9-354de3e2eee7" />
 
 **Web Dashboard Features:**  
-- Real-time SLAM mapping and object detection  
-- End-to-end monitoring pipeline from **robot → cloud → web**  
+- Real-time SLAM mapping and object detection (Yolov5)
+- Web monitoring based on MongoDB & Node-RED
 
 🎥 **Result Video:** [YouTube Link](https://youtu.be/2Iq2_ShP6eY?si=E3-j7cPRBcZmXgdn)
 
