@@ -114,13 +114,4 @@ The web dashboard (built with **Node-RED** and **MongoDB Atlas**) provides a rea
 
 ---
 
-## 👥 Contributors  
-### Co-developed the system design and integration pipeline
-
-| Name | Role | Responsibility |
-|------|------|----------------|
-| **Oh Yoona** | Team Leader | Project management, Sensor integration, Database (MongoDB) and Node-RED dashboard |
-| **Choi Tae-woong** | Developer | SLAM & Navigation implementation, Designed and built the indoor track for SLAM evaluation and navigation testing |
-| **Kim Hye-jin** | Developer | YOLOv5 object detection, Designed and built the indoor track for SLAM evaluation and navigation testing |
-| **Kim Ji-yoon** | Developer | SLAM & Navigation implementation, Designed and built the indoor track for SLAM evaluation and navigation testing |
 
