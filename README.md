@@ -102,7 +102,7 @@ Obstacles were randomly placed to test dynamic path planning and YOLO-based haza
 ---
 
 ## 🏆 Award  
-**Honorable Mention (KAIT Hanium Dream-Up ICT Competition 2025)**  
+***Honorable Mention (KAIT Hanium Dream-Up ICT Competition 2025)***
 
 ---
 
