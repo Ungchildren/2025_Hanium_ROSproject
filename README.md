@@ -110,7 +110,7 @@ Obstacles were randomly placed to test dynamic path planning and YOLO-based haza
 Co-developed the system design and integration pipeline
 | Name | Role | Responsibility |
 |------|------|----------------|
-| **Oh Yoona** | Team Leader | Project management, Database (MongoDB) and Node-RED dashboard |
+| **Oh Yoona** | Team Leader | Project management, Database (MongoDB) and Node-RED dashboard; Sensor integration |
 | **Choi Tae-woong** | Developer | SLAM & Navigation implementation; Designed and built the indoor track for SLAM evaluation and navigation testing |
 | **Kim Hye-jin** | Developer | YOLOv5 object detection; Designed and built the indoor track for SLAM evaluation and navigation testing |
 | **Kim Ji-yoon** | Developer | SLAM & Navigation implementation; Designed and built the indoor track for SLAM evaluation and navigation testing |
