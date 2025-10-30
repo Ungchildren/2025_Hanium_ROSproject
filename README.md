@@ -94,8 +94,16 @@ Obstacles were randomly placed to test dynamic path planning and YOLO-based haza
 <img width="1694" alt="Web Dashboard" src="https://github.com/user-attachments/assets/0c4860cf-5545-40ec-9fa9-354de3e2eee7" />
 
 **Web Dashboard Features:**  
-- Real-time SLAM mapping and object detection (Yolov5)
-- Web monitoring based on MongoDB & Node-RED
+The web dashboard (built with **Node-RED** and **MongoDB Atlas**) provides a real-time visualization of all robot states and sensor data, enabling remote monitoring and control.  
+
+- **SLAM Mapping:** Real-time 2D map generation via LiDAR–IMU–Odometry fusion  
+- **Trajectory Tracking:** Displays robot path, orientation (roll/pitch/yaw), and cumulative distance  
+- **Object Detection:** YOLOv5-based real-time obstacle and hazard visualization through live camera feed  
+- **Sensor Data Monitoring:** Live values for LiDAR range, IMU angular velocity, acceleration, GPS status, and temperature/humidity  
+- **Alert System:** Visual warning when an obstacle is detected within 30 cm of the robot  
+- **Cloud Synchronization:** Latest sensor data automatically updated to MongoDB in real time  
+- **Indoor/Outdoor Detection:** GPS status indicator switches between indoor/outdoor based on signal availability  
+
 
 🎥 **Result Video:** [YouTube Link](https://youtu.be/2Iq2_ShP6eY?si=E3-j7cPRBcZmXgdn)
 
