@@ -32,7 +32,7 @@ This project proposes a **multi-sensor fusion robot system** capable of real-tim
 |---------------|-------------|
 | **OS** | Ubuntu 20.04 LTS |
 | **Framework** | ROS2 Foxy, Navigation2, Cartographer |
-| **Base Package:** Referenced the [STELLA_N2CAM_PI_X4PRO_ROS2_v2.0](https://github.com/ntrexlab/STELLA_N2CAM_PI_X4PRO_ROS2_v2.0) ROS2 package by NtrexLab for hardware integration.
+| **Base Package** | Referenced the [STELLA_N2CAM_PI_X4PRO_ROS2_v2.0](https://github.com/ntrexlab/STELLA_N2CAM_PI_X4PRO_ROS2_v2.0) ROS2 package by NtrexLab
 | **Programming** | Python 3, C++ |
 | **Hardware** | Raspberry Pi 4, Stella N2 Robot |
 | **Sensors** | LiDAR (YDLidar X4PRO), IMU (MW-AHRSv2U), Wheel Encoder, GPS (EZ-0048), Temp/Humidity Sensor |
