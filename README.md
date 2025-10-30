@@ -10,7 +10,6 @@
 - 🎥 **Demo Video:** [YouTube Link](https://youtu.be/2Iq2_ShP6eY?si=E3-j7cPRBcZmXgdn)  
 - 📄 **Paper:** “*Real-Time Disaster Rescue Robot for GPS-Denied Environments Using Multi-Sensor Data Fusion*,”  
   *Korea Information Technology Society, Nov. 2025*  
-- 🧠 **Team:** [Hanium Dream-Up 2025 Project Page](https://www.hanium.or.kr)  
 
 ---
 
