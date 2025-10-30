@@ -75,7 +75,7 @@ This project proposes a **multi-sensor fusion robot system** capable of real-tim
 The robot platform was built using **Raspberry Pi 4**, **YDLidar X4PRO**, **MW-AHRSv2U IMU**, and **a custom chassis** for modular expansion.  
 It integrates multiple sensors for real-time localization, mapping, and obstacle detection in disaster-like indoor environments.  
 
-<img width="1008" height="756" alt="Customized robot" src="https://github.com/user-attachments/assets/a8fa8789-a0e9-48c7-bced-dc42487dbaaf" />
+<img src="https://github.com/user-attachments/assets/a8fa8789-a0e9-48c7-bced-dc42487dbaaf" width="600" alt="Customized Robot" />
 
 ---
 
@@ -84,7 +84,8 @@ To evaluate SLAM accuracy and navigation performance, a custom indoor track was 
 Obstacles were randomly placed to test dynamic path planning and YOLO-based hazard detection.  
 
 
-<img width="1008" height="756" alt="Robot_track" src="https://github.com/user-attachments/assets/de58f297-f8d9-410e-862e-6fb62ddbb3e1" />
+<img src="https://github.com/user-attachments/assets/de58f297-f8d9-410e-862e-6fb62ddbb3e1" width="700" alt="Robot Track" />
+
 
 ---
 
