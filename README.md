@@ -1,7 +1,7 @@
-# 🦾 2025 Hanium ROS project Team: Ungchildren
+# 🦾 2025 Hanium ROS project
 ### 🏅 2025 한이음 드림업 ICT 공모전 장려상 (Honorable Mention, KAIT)  
 
-> ###A real-time disaster rescue robot for GPS-denied environments using multi-sensor data fusion### 
+> ### A real-time disaster rescue robot for GPS-denied environments using multi-sensor data fusion ### 
 > *(LiDAR, IMU, Wheel Encoder, Camera, Temperature/Humidity)*  
 
 ---
